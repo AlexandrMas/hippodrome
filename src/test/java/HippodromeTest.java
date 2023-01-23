@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -10,16 +9,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class HippodromeTest {
-    @Mock
-    Horse horse;
 
     @Test
-    void HippodromeConstructorParameterIsNullShouldTrowIllegalArgumentExceptionWithMessageHorsesCannotBeNull() {
+    void hippodromeConstructorParameterIsNullShouldTrowIllegalArgumentExceptionWithMessageHorsesCannotBeNull() {
         String message = "Horses cannot be null.";
         Throwable exception = assertThrows(
                 IllegalArgumentException.class,
@@ -32,7 +29,7 @@ class HippodromeTest {
     }
 
     @Test
-    void HippodromeConstructorParameterIsEmptyShouldTrowIllegalArgumentExceptionWithMessageHorsesCannotBeEmpty() {
+    void hippodromeConstructorParameterIsEmptyShouldTrowIllegalArgumentExceptionWithMessageHorsesCannotBeEmpty() {
         String message = "Horses cannot be empty.";
         Throwable exception = assertThrows(
                 IllegalArgumentException.class,
@@ -58,11 +55,13 @@ class HippodromeTest {
     void moveShouldToBeCalledFromAllHorses() {
         List<Horse> horses = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            horses.add(horse);
+            horses.add(mock(Horse.class));
         }
         Hippodrome hippodrome = new Hippodrome(horses);
         hippodrome.move();
-        verify(horse, times(50)).move();
+        for (Horse hors : horses) {
+            verify(hors).move();
+        }
     }
 
     @Test
@@ -76,5 +75,4 @@ class HippodromeTest {
         double actual = hippodrome.getWinner().getDistance();
         assertEquals(expected, actual);
     }
-
 }

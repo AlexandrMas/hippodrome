@@ -10,13 +10,13 @@ import static org.mockito.Mockito.only;
 
 class HorseTest {
     @Test
-    void HorseConstructorFirstParameterIsNullShouldTrowIllegalArgumentException() {
+    void horseConstructorNameIsNullShouldTrowIllegalArgumentException() {
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected, () -> new Horse(null, 0, 0));
     }
 
     @Test
-    void HorseConstructorFirstParameterIsNullShouldSendMessageNameCannotBeNull() {
+    void horseConstructorNameIsNullShouldSendMessageNameCannotBeNull() {
         String expected = "Name cannot be null.";
         try {
             new Horse(null, 0, 0);
@@ -28,14 +28,14 @@ class HorseTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "\n", "\t"})
-    void HorseConstructorFirstParameterIsBlankShouldTrowIllegalArgumentException(String name) {
+    void horseConstructorNameIsBlankShouldTrowIllegalArgumentException(String name) {
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected, () -> new Horse(name, 0, 0));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "\n", "\t"})
-    void HorseConstructorFirstParameterIsBlankShouldSendMessageNameCannotBeBlank(String name) {
+    void horseConstructorNameIsBlankShouldSendMessageNameCannotBeBlank(String name) {
         String expected = "Name cannot be blank.";
         try {
             new Horse(name, 0, 0);
@@ -46,13 +46,13 @@ class HorseTest {
     }
 
     @Test()
-    void HorseConstructorSecondParameterIsNegativeNumberShouldTrowIllegalArgumentException() {
+    void horseConstructorSpeedIsNegativeShouldTrowIllegalArgumentException() {
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected, () -> new Horse("name", -1, 0));
     }
 
     @Test
-    void HorseConstructorSecondParameterIsNegativeNumberShouldSendMessageSpeedCannotBeNegative() {
+    void horseConstructorSpeedIsNegativeShouldSendMessageSpeedCannotBeNegative() {
         String expected = "Speed cannot be negative.";
         try {
             new Horse("name", -1, 0);
@@ -63,13 +63,13 @@ class HorseTest {
     }
 
     @Test
-    void HorseConstructorThirdParameterIsNegativeNumberShouldTrowIllegalArgumentException() {
+    void horseConstructorDistanceIsNegativeShouldTrowIllegalArgumentException() {
         Class<IllegalArgumentException> expected = IllegalArgumentException.class;
         assertThrows(expected, () -> new Horse("name", 0, -1));
     }
 
     @Test
-    void HorseConstructorThirdParameterIsNegativeNumberShouldSendMessageDistanceCannotBeNegative() {
+    void horseConstructorDistanceIsNegativeShouldSendMessageDistanceCannotBeNegative() {
         String expected = "Distance cannot be negative.";
         try {
             new Horse("name", 0, -1);
@@ -80,7 +80,7 @@ class HorseTest {
     }
 
     @Test
-    void getNameShouldReturnStringFirstParameterOfConstructor() {
+    void getNameShouldReturnName() {
         String name = "name";
         Horse horse = new Horse(name, 0, 0);
         String expected = name;
@@ -89,7 +89,7 @@ class HorseTest {
     }
 
     @Test
-    void getSpeedShouldReturnNumberSecondParameterOfConstructor() {
+    void getSpeedShouldReturnSpeed() {
         double speed = 0;
         Horse horse = new Horse("name", speed, 0);
         double expected = speed;
@@ -98,7 +98,7 @@ class HorseTest {
     }
 
     @Test
-    void getDistanceShouldReturnNumberThirdParameterOfConstructor() {
+    void getDistanceShouldReturnDistance() {
         double distance = 0;
         Horse horse = new Horse("name", 0, distance);
         double expected = distance;
@@ -107,7 +107,7 @@ class HorseTest {
     }
 
     @Test
-    void getDistanceShouldReturnZeroThirdParameterOfConstructor() {
+    void getDistanceShouldReturnZero() {
         Horse horse = new Horse("name", 0);
         double expected = 0;
         double actual = horse.getDistance();
